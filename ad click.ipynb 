@@ -1,0 +1,898 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "f4b1c0d0-9343-4d94-b956-7fb1240b243b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "6c5350f0-aa1f-44fc-93a2-42151a912a88",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=pd.read_csv(\"advertising.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "fbf05f8a-74b7-45ce-8ce6-3bcaba7f28c5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Daily Time Spent on Site</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>Area Income</th>\n",
+       "      <th>Daily Internet Usage</th>\n",
+       "      <th>Ad Topic Line</th>\n",
+       "      <th>City</th>\n",
+       "      <th>Male</th>\n",
+       "      <th>Country</th>\n",
+       "      <th>Timestamp</th>\n",
+       "      <th>Clicked on Ad</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>68.95</td>\n",
+       "      <td>35</td>\n",
+       "      <td>61833.90</td>\n",
+       "      <td>256.09</td>\n",
+       "      <td>Cloned 5thgeneration orchestration</td>\n",
+       "      <td>Wrightburgh</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Tunisia</td>\n",
+       "      <td>2016-03-27 00:53:11</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>80.23</td>\n",
+       "      <td>31</td>\n",
+       "      <td>68441.85</td>\n",
+       "      <td>193.77</td>\n",
+       "      <td>Monitored national standardization</td>\n",
+       "      <td>West Jodi</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Nauru</td>\n",
+       "      <td>2016-04-04 01:39:02</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>69.47</td>\n",
+       "      <td>26</td>\n",
+       "      <td>59785.94</td>\n",
+       "      <td>236.50</td>\n",
+       "      <td>Organic bottom-line service-desk</td>\n",
+       "      <td>Davidton</td>\n",
+       "      <td>0</td>\n",
+       "      <td>San Marino</td>\n",
+       "      <td>2016-03-13 20:35:42</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>74.15</td>\n",
+       "      <td>29</td>\n",
+       "      <td>54806.18</td>\n",
+       "      <td>245.89</td>\n",
+       "      <td>Triple-buffered reciprocal time-frame</td>\n",
+       "      <td>West Terrifurt</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Italy</td>\n",
+       "      <td>2016-01-10 02:31:19</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>68.37</td>\n",
+       "      <td>35</td>\n",
+       "      <td>73889.99</td>\n",
+       "      <td>225.58</td>\n",
+       "      <td>Robust logistical utilization</td>\n",
+       "      <td>South Manuel</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Iceland</td>\n",
+       "      <td>2016-06-03 03:36:18</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   Daily Time Spent on Site  Age  Area Income  Daily Internet Usage  \\\n",
+       "0                     68.95   35     61833.90                256.09   \n",
+       "1                     80.23   31     68441.85                193.77   \n",
+       "2                     69.47   26     59785.94                236.50   \n",
+       "3                     74.15   29     54806.18                245.89   \n",
+       "4                     68.37   35     73889.99                225.58   \n",
+       "\n",
+       "                           Ad Topic Line            City  Male     Country  \\\n",
+       "0     Cloned 5thgeneration orchestration     Wrightburgh     0     Tunisia   \n",
+       "1     Monitored national standardization       West Jodi     1       Nauru   \n",
+       "2       Organic bottom-line service-desk        Davidton     0  San Marino   \n",
+       "3  Triple-buffered reciprocal time-frame  West Terrifurt     1       Italy   \n",
+       "4          Robust logistical utilization    South Manuel     0     Iceland   \n",
+       "\n",
+       "             Timestamp  Clicked on Ad  \n",
+       "0  2016-03-27 00:53:11              0  \n",
+       "1  2016-04-04 01:39:02              0  \n",
+       "2  2016-03-13 20:35:42              0  \n",
+       "3  2016-01-10 02:31:19              0  \n",
+       "4  2016-06-03 03:36:18              0  "
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "0dad926d-28d7-49ba-a1fa-22e2ac6d58b0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Daily Time Spent on Site</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>Area Income</th>\n",
+       "      <th>Daily Internet Usage</th>\n",
+       "      <th>Ad Topic Line</th>\n",
+       "      <th>City</th>\n",
+       "      <th>Male</th>\n",
+       "      <th>Country</th>\n",
+       "      <th>Timestamp</th>\n",
+       "      <th>Clicked on Ad</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>995</th>\n",
+       "      <td>72.97</td>\n",
+       "      <td>30</td>\n",
+       "      <td>71384.57</td>\n",
+       "      <td>208.58</td>\n",
+       "      <td>Fundamental modular algorithm</td>\n",
+       "      <td>Duffystad</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Lebanon</td>\n",
+       "      <td>2016-02-11 21:49:00</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>996</th>\n",
+       "      <td>51.30</td>\n",
+       "      <td>45</td>\n",
+       "      <td>67782.17</td>\n",
+       "      <td>134.42</td>\n",
+       "      <td>Grass-roots cohesive monitoring</td>\n",
+       "      <td>New Darlene</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Bosnia and Herzegovina</td>\n",
+       "      <td>2016-04-22 02:07:01</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>997</th>\n",
+       "      <td>51.63</td>\n",
+       "      <td>51</td>\n",
+       "      <td>42415.72</td>\n",
+       "      <td>120.37</td>\n",
+       "      <td>Expanded intangible solution</td>\n",
+       "      <td>South Jessica</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Mongolia</td>\n",
+       "      <td>2016-02-01 17:24:57</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>998</th>\n",
+       "      <td>55.55</td>\n",
+       "      <td>19</td>\n",
+       "      <td>41920.79</td>\n",
+       "      <td>187.95</td>\n",
+       "      <td>Proactive bandwidth-monitored policy</td>\n",
+       "      <td>West Steven</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Guatemala</td>\n",
+       "      <td>2016-03-24 02:35:54</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>999</th>\n",
+       "      <td>45.01</td>\n",
+       "      <td>26</td>\n",
+       "      <td>29875.80</td>\n",
+       "      <td>178.35</td>\n",
+       "      <td>Virtual 5thgeneration emulation</td>\n",
+       "      <td>Ronniemouth</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Brazil</td>\n",
+       "      <td>2016-06-03 21:43:21</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "     Daily Time Spent on Site  Age  Area Income  Daily Internet Usage  \\\n",
+       "995                     72.97   30     71384.57                208.58   \n",
+       "996                     51.30   45     67782.17                134.42   \n",
+       "997                     51.63   51     42415.72                120.37   \n",
+       "998                     55.55   19     41920.79                187.95   \n",
+       "999                     45.01   26     29875.80                178.35   \n",
+       "\n",
+       "                            Ad Topic Line           City  Male  \\\n",
+       "995         Fundamental modular algorithm      Duffystad     1   \n",
+       "996       Grass-roots cohesive monitoring    New Darlene     1   \n",
+       "997          Expanded intangible solution  South Jessica     1   \n",
+       "998  Proactive bandwidth-monitored policy    West Steven     0   \n",
+       "999       Virtual 5thgeneration emulation    Ronniemouth     0   \n",
+       "\n",
+       "                    Country            Timestamp  Clicked on Ad  \n",
+       "995                 Lebanon  2016-02-11 21:49:00              1  \n",
+       "996  Bosnia and Herzegovina  2016-04-22 02:07:01              1  \n",
+       "997                Mongolia  2016-02-01 17:24:57              1  \n",
+       "998               Guatemala  2016-03-24 02:35:54              0  \n",
+       "999                  Brazil  2016-06-03 21:43:21              1  "
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.tail()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "9575172f-54bf-440f-8ef6-f7a3dbcc5315",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 1000 entries, 0 to 999\n",
+      "Data columns (total 10 columns):\n",
+      " #   Column                    Non-Null Count  Dtype  \n",
+      "---  ------                    --------------  -----  \n",
+      " 0   Daily Time Spent on Site  1000 non-null   float64\n",
+      " 1   Age                       1000 non-null   int64  \n",
+      " 2   Area Income               1000 non-null   float64\n",
+      " 3   Daily Internet Usage      1000 non-null   float64\n",
+      " 4   Ad Topic Line             1000 non-null   object \n",
+      " 5   City                      1000 non-null   object \n",
+      " 6   Male                      1000 non-null   int64  \n",
+      " 7   Country                   1000 non-null   object \n",
+      " 8   Timestamp                 1000 non-null   object \n",
+      " 9   Clicked on Ad             1000 non-null   int64  \n",
+      "dtypes: float64(3), int64(3), object(4)\n",
+      "memory usage: 78.3+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "745c4a33-5669-4fcc-8d89-9d93612100a7",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Daily Time Spent on Site</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>Area Income</th>\n",
+       "      <th>Daily Internet Usage</th>\n",
+       "      <th>Male</th>\n",
+       "      <th>Clicked on Ad</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.000000</td>\n",
+       "      <td>1000.00000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>65.000200</td>\n",
+       "      <td>36.009000</td>\n",
+       "      <td>55000.000080</td>\n",
+       "      <td>180.000100</td>\n",
+       "      <td>0.481000</td>\n",
+       "      <td>0.50000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>15.853615</td>\n",
+       "      <td>8.785562</td>\n",
+       "      <td>13414.634022</td>\n",
+       "      <td>43.902339</td>\n",
+       "      <td>0.499889</td>\n",
+       "      <td>0.50025</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>32.600000</td>\n",
+       "      <td>19.000000</td>\n",
+       "      <td>13996.500000</td>\n",
+       "      <td>104.780000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.00000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>51.360000</td>\n",
+       "      <td>29.000000</td>\n",
+       "      <td>47031.802500</td>\n",
+       "      <td>138.830000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.00000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>68.215000</td>\n",
+       "      <td>35.000000</td>\n",
+       "      <td>57012.300000</td>\n",
+       "      <td>183.130000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.50000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>78.547500</td>\n",
+       "      <td>42.000000</td>\n",
+       "      <td>65470.635000</td>\n",
+       "      <td>218.792500</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>1.00000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>91.430000</td>\n",
+       "      <td>61.000000</td>\n",
+       "      <td>79484.800000</td>\n",
+       "      <td>269.960000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>1.00000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Daily Time Spent on Site          Age   Area Income  \\\n",
+       "count               1000.000000  1000.000000   1000.000000   \n",
+       "mean                  65.000200    36.009000  55000.000080   \n",
+       "std                   15.853615     8.785562  13414.634022   \n",
+       "min                   32.600000    19.000000  13996.500000   \n",
+       "25%                   51.360000    29.000000  47031.802500   \n",
+       "50%                   68.215000    35.000000  57012.300000   \n",
+       "75%                   78.547500    42.000000  65470.635000   \n",
+       "max                   91.430000    61.000000  79484.800000   \n",
+       "\n",
+       "       Daily Internet Usage         Male  Clicked on Ad  \n",
+       "count           1000.000000  1000.000000     1000.00000  \n",
+       "mean             180.000100     0.481000        0.50000  \n",
+       "std               43.902339     0.499889        0.50025  \n",
+       "min              104.780000     0.000000        0.00000  \n",
+       "25%              138.830000     0.000000        0.00000  \n",
+       "50%              183.130000     0.000000        0.50000  \n",
+       "75%              218.792500     1.000000        1.00000  \n",
+       "max              269.960000     1.000000        1.00000  "
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "9c217f26-28a8-4a8b-9d07-2d407cd96853",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.drop('Ad Topic Line', axis=1, inplace=True)\n",
+    "df.drop('City', axis=1, inplace=True)\n",
+    "df.drop('Country', axis=1, inplace=True)\n",
+    "df.drop('Timestamp', axis=1, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "beec0e52-749d-4d74-9817-8d3c35091e5a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Daily Time Spent on Site</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>Area Income</th>\n",
+       "      <th>Daily Internet Usage</th>\n",
+       "      <th>Male</th>\n",
+       "      <th>Clicked on Ad</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>68.95</td>\n",
+       "      <td>35</td>\n",
+       "      <td>61833.90</td>\n",
+       "      <td>256.09</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>80.23</td>\n",
+       "      <td>31</td>\n",
+       "      <td>68441.85</td>\n",
+       "      <td>193.77</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>69.47</td>\n",
+       "      <td>26</td>\n",
+       "      <td>59785.94</td>\n",
+       "      <td>236.50</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>74.15</td>\n",
+       "      <td>29</td>\n",
+       "      <td>54806.18</td>\n",
+       "      <td>245.89</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>68.37</td>\n",
+       "      <td>35</td>\n",
+       "      <td>73889.99</td>\n",
+       "      <td>225.58</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   Daily Time Spent on Site  Age  Area Income  Daily Internet Usage  Male  \\\n",
+       "0                     68.95   35     61833.90                256.09     0   \n",
+       "1                     80.23   31     68441.85                193.77     1   \n",
+       "2                     69.47   26     59785.94                236.50     0   \n",
+       "3                     74.15   29     54806.18                245.89     1   \n",
+       "4                     68.37   35     73889.99                225.58     0   \n",
+       "\n",
+       "   Clicked on Ad  \n",
+       "0              0  \n",
+       "1              0  \n",
+       "2              0  \n",
+       "3              0  \n",
+       "4              0  "
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "6c460882-7f2b-4c6f-b22c-6208a5cf7ba6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y = df[\"Clicked on Ad\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "78b61470-5500-4963-9645-dfedce6f2313",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.drop(\"Clicked on Ad\", axis=1, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "7e9050ea-c10a-43fb-822c-58503c4a6040",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "id": "00a8f336-f4f6-4109-8e46-79d7d250c3b2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import train_test_split"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "id": "ee18f7bb-138c-45fc-b7ff-303dbab25bb4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.2,random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "d1a7bac7-e83b-4692-bdd4-11b062638201",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.linear_model import LogisticRegression "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "id": "0aca1ad1-d9db-4872-b6a0-407fead5b3b9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lm = LogisticRegression()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "id": "61938268-2838-44c7-b7d1-28ba004dca2f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-4 {color: black;background-color: white;}#sk-container-id-4 pre{padding: 0;}#sk-container-id-4 div.sk-toggleable {background-color: white;}#sk-container-id-4 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-4 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-4 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-4 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-4 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-4 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-4 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-4 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-4 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-4 div.sk-item {position: relative;z-index: 1;}#sk-container-id-4 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-4 div.sk-item::before, #sk-container-id-4 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-4 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-4 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-4 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-4 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-4 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-4 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-4 div.sk-label-container {text-align: center;}#sk-container-id-4 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-4 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-4\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-4\" type=\"checkbox\" checked><label for=\"sk-estimator-id-4\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">LogisticRegression</label><div class=\"sk-toggleable__content\"><pre>LogisticRegression()</pre></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "LogisticRegression()"
+      ]
+     },
+     "execution_count": 53,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "lm.fit(x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "id": "ec98b0fb-b19a-4516-85d2-ee0ceb68e417",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'sklearn.linear_model._logistic.LogisticRegression'>\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(type(lm))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "id": "018b0467-fe3f-4e1d-9931-7689194fd160",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.9"
+      ]
+     },
+     "execution_count": 55,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "lm.score(x_test, y_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "id": "646e79d5-805a-4667-ab54-152b99d659d0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.ensemble import RandomForestClassifier"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "id": "c3060c92-f5d3-40ad-8cf3-ca7a1065f4dc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rf_classifier= RandomForestClassifier(n_estimators=100, random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "id": "09910a94-9956-490a-bd43-529fbb7a7c0a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-5 {color: black;background-color: white;}#sk-container-id-5 pre{padding: 0;}#sk-container-id-5 div.sk-toggleable {background-color: white;}#sk-container-id-5 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-5 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-5 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-5 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-5 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-5 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-5 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-5 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-5 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-5 div.sk-item {position: relative;z-index: 1;}#sk-container-id-5 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-5 div.sk-item::before, #sk-container-id-5 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-5 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-5 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-5 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-5 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-5 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-5 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-5 div.sk-label-container {text-align: center;}#sk-container-id-5 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-5 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-5\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>RandomForestClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-5\" type=\"checkbox\" checked><label for=\"sk-estimator-id-5\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">RandomForestClassifier</label><div class=\"sk-toggleable__content\"><pre>RandomForestClassifier(random_state=42)</pre></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "RandomForestClassifier(random_state=42)"
+      ]
+     },
+     "execution_count": 58,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "rf_classifier.fit(x_train, y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "id": "848272a4-ed6b-4a30-9d0a-b042b19a3f6b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.93"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "rf_classifier.score(x_test, y_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "id": "7d2b4406-4b18-4d84-b924-3de8a7576760",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.svm import SVC"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "id": "9b542598-f698-4ead-a151-ac7cfb40dec8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "svm_classifier=SVC(kernel='rbf', random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "id": "573e5f3f-479b-4767-a500-cef0178cde70",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>#sk-container-id-6 {color: black;background-color: white;}#sk-container-id-6 pre{padding: 0;}#sk-container-id-6 div.sk-toggleable {background-color: white;}#sk-container-id-6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-6 label.sk-toggleable__label-arrow:before {content: \"▸\";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: \"▾\";}#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-6 div.sk-parallel-item::after {content: \"\";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-serial::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-6 div.sk-item {position: relative;z-index: 1;}#sk-container-id-6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-6 div.sk-item::before, #sk-container-id-6 div.sk-parallel-item::before {content: \"\";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-6 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-6 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-6 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-6 div.sk-label-container {text-align: center;}#sk-container-id-6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-6 div.sk-text-repr-fallback {display: none;}</style><div id=\"sk-container-id-6\" class=\"sk-top-container\"><div class=\"sk-text-repr-fallback\"><pre>SVC(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class=\"sk-container\" hidden><div class=\"sk-item\"><div class=\"sk-estimator sk-toggleable\"><input class=\"sk-toggleable__control sk-hidden--visually\" id=\"sk-estimator-id-6\" type=\"checkbox\" checked><label for=\"sk-estimator-id-6\" class=\"sk-toggleable__label sk-toggleable__label-arrow\">SVC</label><div class=\"sk-toggleable__content\"><pre>SVC(random_state=42)</pre></div></div></div></div></div>"
+      ],
+      "text/plain": [
+       "SVC(random_state=42)"
+      ]
+     },
+     "execution_count": 64,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "svm_classifier.fit(x_train, y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "id": "cce62bff-5ffd-459b-bf2a-9cee9db3f542",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.68"
+      ]
+     },
+     "execution_count": 65,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "svm_classifier.score(x_test, y_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7f860f15-bc5d-445a-bb25-9b40a2199f08",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
